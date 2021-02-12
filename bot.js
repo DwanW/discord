@@ -13,7 +13,7 @@ client.on('message', msg => {
         msg.reply("Pong!")
     }
     if (msg.content.includes('griefer')){
-        msg.reply("The only griefer god is Mr.Han")
+        msg.reply("you are talking about Mr.Han, right?")
     }
 })
 
