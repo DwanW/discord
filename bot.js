@@ -12,6 +12,9 @@ client.on('message', msg => {
     if (msg.content === "ping"){
         msg.reply("Pong!")
     }
+    if (msg.content.includes('griefer')){
+        msg.reply("The only griefer god is Mr.Han")
+    }
 })
 
 client.login(process.env.BOT_TOKEN)
