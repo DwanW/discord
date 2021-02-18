@@ -9,13 +9,16 @@ client.on("ready", () => {
 });
 
 client.on("message", async (msg) => {
-  if (msg.content === "!random") {
+  if (msg.content === "!r") {
     try{
     const replyMessage = await getRandomWord()
     await msg.reply(replyMessage);
     }catch(err){
       console.log(err)
     }
+  }
+  if(msg.content === "!help"){
+    msg.channel.send('!r -generate a random word')
   }
   if (msg.content.includes("griefer")) {
     msg.reply("you are talking about Mr.Han, right?");

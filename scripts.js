@@ -4,7 +4,7 @@ var options = {
   method: "GET",
   url: "https://random-words-with-pronunciation.p.rapidapi.com/word",
   headers: {
-    "x-rapidapi-key": "866cb11a13msh4c026d31f9bc393p1d7168jsn1a054d796389",
+    "x-rapidapi-key": process.env.RAPID_KEY,
     "x-rapidapi-host": "random-words-with-pronunciation.p.rapidapi.com",
   },
 };
