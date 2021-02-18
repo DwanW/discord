@@ -12,7 +12,7 @@ client.on("message", async (msg) => {
   if (msg.content === "!r") {
     try{
     const replyMessage = await getRandomWord()
-    await msg.reply(replyMessage);
+    await msg.reply(`${replyMessage.word}, it means ${replyMessage.definition}`);
     }catch(err){
       console.log(err)
     }

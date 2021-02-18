@@ -12,8 +12,8 @@ var options = {
 const getRandomWord = async () => {
   try {
     const response = await axios.request(options);
-    //.definition .pronunciation
-    return response.data[0].word;
+    //.definition .pronunciation .word
+    return response.data[0];
   } catch (error) {
     console.log(error);
   }
