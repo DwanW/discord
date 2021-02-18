@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { getRandomWord } = require("./scripts");
 
 const { Client, MessageEmbed } = require("discord.js");
 const client = new Client();
@@ -7,9 +8,14 @@ client.on("ready", () => {
   console.log("bot is ready");
 });
 
-client.on("message", (msg) => {
-  if (msg.content === "ping") {
-    msg.reply("Pong!");
+client.on("message", async (msg) => {
+  if (msg.content === "!random") {
+    try{
+    const replyMessage = await getRandomWord()
+    await msg.reply(replyMessage);
+    }catch(err){
+      console.log(err)
+    }
   }
   if (msg.content.includes("griefer")) {
     msg.reply("you are talking about Mr.Han, right?");
@@ -36,12 +42,14 @@ client.on("message", (message) => {
   }
 });
 
-client.on("messageDelete", (message) => {
-    message.reply(`${message}, is what you deleted.`);
-})
+// client.on("messageDelete", (message) => {
+//   message.reply(`${message}, is what you deleted.`);
+// });
 
-client.on("typingStart", (channel, user) => {
-    channel.send(`${user.username} is about to reveal some hidden secrets, listen up everyone!`)
-})
+// client.on("typingStart", (channel, user) => {
+//   channel.send(
+//     `${user.username} is about to reveal some hidden secrets, listen up everyone!`
+//   );
+// });
 
 client.login(process.env.BOT_TOKEN);
