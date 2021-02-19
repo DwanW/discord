@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { getRandomWord } = require("./scripts");
+const { GrieferString } = require("./data");
 
 const { Client, MessageEmbed } = require("discord.js");
 const client = new Client();
@@ -10,18 +11,21 @@ client.on("ready", () => {
 
 client.on("message", async (msg) => {
   if (msg.content === "!r") {
-    try{
-    const replyMessage = await getRandomWord()
-    await msg.reply(`${replyMessage.word}, it means ${replyMessage.definition}`);
-    }catch(err){
-      console.log(err)
+    if (msg.author.discriminator === "0013") {
+      msg.reply(GrieferString[Math.floor(Math.random() * 3)]);
+    } else {
+      try {
+        const replyMessage = await getRandomWord();
+        await msg.reply(
+          `${replyMessage.word}, it means ${replyMessage.definition}`
+        );
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
-  if(msg.content === "!help"){
-    msg.channel.send('!r -generate a random word')
-  }
-  if (msg.content.includes("griefer")) {
-    msg.reply("you are talking about Mr.Han, right?");
+  if (msg.content === "!help") {
+    msg.channel.send("!r -generate a random word");
   }
 });
 
