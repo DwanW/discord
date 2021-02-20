@@ -12,7 +12,19 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
   if (msg.content === "!r") {
     if (msg.author.discriminator === "0013") {
-      msg.reply(GrieferString[Math.floor(Math.random() * 3)]);
+      let griefCheck = Math.random() > 0.7;
+      if (griefCheck) {
+        msg.reply(GrieferString[Math.floor(Math.random() * 3)]);
+      } else {
+        try {
+          const replyMessage = await getRandomWord();
+          await msg.reply(
+            `${replyMessage.word}, it means ${replyMessage.definition}`
+          );
+        } catch (err) {
+          console.log(err);
+        }
+      }
     } else {
       try {
         const replyMessage = await getRandomWord();
