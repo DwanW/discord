@@ -9,7 +9,12 @@ var options = {
   },
 };
 
-const getRandomWord = async () => {
+var options2 = {
+  method: "GET",
+  url: "https://random-word-api.herokuapp.com/word",
+};
+
+const getRandomWordWithDefinition = async () => {
   try {
     const response = await axios.request(options);
     //.definition .pronunciation .word
@@ -19,4 +24,14 @@ const getRandomWord = async () => {
   }
 };
 
-module.exports = { getRandomWord };
+const getRandomWord = async () => {
+  try {
+    const response = await axios.request(options2);
+    //.definition .pronunciation .word
+    return response.data[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { getRandomWordWithDefinition, getRandomWord };

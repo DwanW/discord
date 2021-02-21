@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { getRandomWord } = require("./scripts");
+const { getRandomWord, getRandomWordWithDefinition } = require("./scripts");
 const { GrieferString } = require("./data");
 
 const { Client, MessageEmbed } = require("discord.js");
@@ -17,10 +17,30 @@ client.on("message", async (msg) => {
         msg.reply(GrieferString[Math.floor(Math.random() * 3)]);
       } else {
         try {
+          const replyMessage = await getRandomWordWithDefinition();
+          await msg.reply(`${replyMessage.word}, it means ${replyMessage.definition}`);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    } else {
+      try {
+        const replyMessage = await getRandomWordWithDefinition();
+        await msg.reply(`${replyMessage.word}, it means ${replyMessage.definition}`);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+  if (msg.content === "!e") {
+    if (msg.author.discriminator === "0013") {
+      let griefCheck = Math.random() > 0.65;
+      if (griefCheck) {
+        msg.reply(GrieferString[Math.floor(Math.random() * 3)]);
+      } else {
+        try {
           const replyMessage = await getRandomWord();
-          await msg.reply(
-            `${replyMessage.word}, it means ${replyMessage.definition}`
-          );
+          await msg.reply(`${replyMessage}`);
         } catch (err) {
           console.log(err);
         }
@@ -28,16 +48,18 @@ client.on("message", async (msg) => {
     } else {
       try {
         const replyMessage = await getRandomWord();
-        await msg.reply(
-          `${replyMessage.word}, it means ${replyMessage.definition}`
-        );
+        await msg.reply(`${replyMessage}`);
       } catch (err) {
         console.log(err);
       }
     }
   }
-  if (msg.content === "!help") {
-    msg.channel.send("!r -generate a random word");
+  if (msg.content === "!h") {
+    const embed = new MessageEmbed()
+    .setTitle("Bot Command")
+    .setColor(0xff00ff)
+    .setDescription("!r :generate a random word with definition \n!e :generate random word");
+    msg.channel.send(embed);
   }
 });
 
