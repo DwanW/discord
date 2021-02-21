@@ -12,7 +12,7 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
   if (msg.content === "!r") {
     if (msg.author.discriminator === "0013") {
-      let griefCheck = Math.random() > 0.7;
+      let griefCheck = Math.random() > 0.85;
       if (griefCheck) {
         msg.reply(GrieferString[Math.floor(Math.random() * 3)]);
       } else {
