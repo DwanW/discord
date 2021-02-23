@@ -34,7 +34,7 @@ client.on("message", async (msg) => {
   }
   if (msg.content === "!e") {
     if (msg.author.discriminator === "0013") {
-      let griefCheck = Math.random() > 0.65;
+      let griefCheck = Math.random() > 0.5;
       if (griefCheck) {
         msg.reply(GrieferString[Math.floor(Math.random() * 3)]);
       } else {
