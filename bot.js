@@ -18,7 +18,9 @@ client.on("message", async (msg) => {
       } else {
         try {
           const replyMessage = await getRandomWordWithDefinition();
-          await msg.reply(`${replyMessage.word}, it means ${replyMessage.definition}`);
+          await msg.reply(
+            `${replyMessage.word}, it means ${replyMessage.definition}`
+          );
         } catch (err) {
           console.log(err);
         }
@@ -26,7 +28,9 @@ client.on("message", async (msg) => {
     } else {
       try {
         const replyMessage = await getRandomWordWithDefinition();
-        await msg.reply(`${replyMessage.word}, it means ${replyMessage.definition}`);
+        await msg.reply(
+          `${replyMessage.word}, it means ${replyMessage.definition}`
+        );
       } catch (err) {
         console.log(err);
       }
@@ -56,10 +60,15 @@ client.on("message", async (msg) => {
   }
   if (msg.content === "!h") {
     const embed = new MessageEmbed()
-    .setTitle("Bot Command")
-    .setColor(0xff00ff)
-    .setDescription("!r :generate a random word with definition \n!e :generate random word");
+      .setTitle("Bot Command")
+      .setColor(0xff00ff)
+      .setDescription(
+        "!r :generate a random word with definition \n!e :generate random word"
+      );
     msg.channel.send(embed);
+  }
+  if (msg.content === "!nb") {
+    msg.channel.send("韩师傅牛逼 - Master Han is Awesome");
   }
 });
 
