@@ -68,7 +68,13 @@ client.on("message", async (msg) => {
     msg.channel.send(embed);
   }
   if (msg.content === "!nb") {
-    msg.channel.send("韩师傅牛逼 - Master Han is Awesome");
+    if (msg.author.discriminator === "0013") {
+      msg.channel.send("?");
+
+      setTimeout(() => msg.channel.send("我为什么说我自己牛逼"), 2000);
+    } else {
+      msg.channel.send("韩师傅牛逼 - Master Han is Awesome");
+    }
   }
 });
 
