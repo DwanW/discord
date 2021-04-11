@@ -67,20 +67,19 @@ client.on("message", async (msg) => {
       );
     msg.channel.send(embed);
   }
-  // if (msg.content === "!nb") {
-  //   if (msg.author.discriminator === "0013") {
-  //     msg.channel.send("?");
-  //     setTimeout(() => msg.channel.send("我为什么说我自己牛逼"), 2000);
-  //   } else {
-  //     if (msg.member.voice.channel) {
-  //       const connection = await msg.member.voice.channel.join();
-  //       connection.play("voice-nb.mp3").on("finish", () => {
-  //         msg.member.voice.channel.leave();
-  //       });
-  //     }
-  //     msg.channel.send("韩师傅牛逼 - Master Han is Awesome");
-  //   }
-  // }
+  if (msg.content === "!nb") {
+    if (msg.author.discriminator === "0013") {
+      if (msg.member.voice.channel) {
+        const connection = await msg.member.voice.channel.join();
+        connection.play("voice-nb.mp3").on("finish", () => {
+          msg.member.voice.channel.leave();
+        });
+      }
+      msg.channel.send("?");
+    } else {
+      msg.reply("Only <griefer> has access to this command");
+    }
+  }
 });
 
 client.on("guildMemberAdd", (member) => {
