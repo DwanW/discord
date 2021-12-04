@@ -31,7 +31,7 @@ client.on("messageCreate", async (msg) => {
   if (msg.content.startsWith("!c ") && msg.content.length > 3) {
     const messagePosted = msg.content.slice(3).trim();
     const reply = await getOpenAPICompletionResponse(openAI, messagePosted);
-    if (reply !== "") {
+    if (reply) {
       msg.reply(reply);
     } else {
       msg.reply("AI attempts to remain silent");
