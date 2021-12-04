@@ -7,8 +7,17 @@ const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 const openAI = new OpenAI(OPENAI_API_KEY);
 
-const { Client, MessageEmbed, Intents } = require("discord.js");
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const { Client, MessageEmbed } = require("discord.js");
+const client = new Client({
+  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+  intents: [
+    "DIRECT_MESSAGES",
+    "DIRECT_MESSAGE_REACTIONS",
+    "GUILD_MESSAGES",
+    "GUILD_MESSAGE_REACTIONS",
+    "GUILDS",
+  ],
+});
 
 client.once("ready", () => {
   console.log("bot is ready!");
