@@ -2,14 +2,24 @@ require("dotenv").config();
 const { getRandomWord, getRandomWordWithDefinition } = require("./scripts");
 const { GrieferString } = require("./data");
 
-const { Client, MessageEmbed } = require("discord.js");
-const client = new Client();
+const OpenAI = require("openai-api");
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-client.on("ready", () => {
-  console.log("bot is ready");
+const openAI = new OpenAI(OPENAI_API_KEY);
+
+const { Client, MessageEmbed, Intents } = require("discord.js");
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+client.once("ready", () => {
+  console.log("bot is ready!");
 });
 
-client.on("message", async (msg) => {
+client.on("messageCreate", async (msg) => {
+  console.log(msg.content);
+  if (msg.content.startsWith("!c ") && msg.content.length > 3) {
+    const messagePosted = msg.content.slice(3).trim();
+    console.log(messagePosted);
+  }
   if (msg.content === "!r") {
     if (msg.author.discriminator === "0013") {
       let griefCheck = Math.random() > 0.85;
@@ -65,7 +75,7 @@ client.on("message", async (msg) => {
       .setDescription(
         "!r :generate a random word with definition \n!e :generate random word"
       );
-    msg.channel.send(embed);
+    msg.channel.send({ embeds: [embed] });
   }
   if (msg.content === "!nb") {
     if (msg.author.discriminator === "0013") {
@@ -91,25 +101,5 @@ client.on("guildMemberAdd", (member) => {
     `Welcome to the server, ${member}, the only reason you are here is for the memes`
   );
 });
-
-client.on("message", (message) => {
-  if (message.content === "how to embed") {
-    const embed = new MessageEmbed()
-      .setTitle("A slick little embed")
-      .setColor(0xff0000)
-      .setDescription("Hello, this is a slick embed!");
-    message.channel.send(embed);
-  }
-});
-
-// client.on("messageDelete", (message) => {
-//   message.reply(`${message}, is what you deleted.`);
-// });
-
-// client.on("typingStart", (channel, user) => {
-//   channel.send(
-//     `${user.username} is about to reveal some hidden secrets, listen up everyone!`
-//   );
-// });
 
 client.login(process.env.BOT_TOKEN);
