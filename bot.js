@@ -1,5 +1,9 @@
 require("dotenv").config();
-const { getRandomWord, getRandomWordWithDefinition } = require("./scripts");
+const {
+  getRandomWord,
+  getRandomWordWithDefinition,
+  getOpenAPICompletionResponse,
+} = require("./scripts");
 const { GrieferString } = require("./data");
 
 const OpenAI = require("openai-api");
@@ -24,10 +28,10 @@ client.once("ready", () => {
 });
 
 client.on("messageCreate", async (msg) => {
-  console.log(msg.content);
   if (msg.content.startsWith("!c ") && msg.content.length > 3) {
     const messagePosted = msg.content.slice(3).trim();
-    console.log(messagePosted);
+    const reply = await getOpenAPICompletionResponse(openAI, messagePosted);
+    msg.reply(reply);
   }
   if (msg.content === "!r") {
     if (msg.author.discriminator === "0013") {
@@ -82,7 +86,7 @@ client.on("messageCreate", async (msg) => {
       .setTitle("Bot Command")
       .setColor(0xff00ff)
       .setDescription(
-        "!r :generate a random word with definition \n!e :generate random word"
+        "!r :generate a random word with definition \n!e :generate random word \n!c <message> : generate response from ai"
       );
     msg.channel.send({ embeds: [embed] });
   }

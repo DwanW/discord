@@ -34,4 +34,22 @@ const getRandomWord = async () => {
   }
 };
 
-module.exports = { getRandomWordWithDefinition, getRandomWord };
+const getOpenAPICompletionResponse = async (openai, message) => {
+  const gptResponse = await openai.complete({
+    engine: "davinci",
+    prompt: `Respond to the following sentence humorously. \n${message}\nresponse:    `,
+    temperature: 0.9,
+    max_tokens: 150,
+    top_p: 1,
+    frequency_penalty: 0,
+    presence_penalty: 0.6,
+    stop: ["\n"],
+  });
+  return gptResponse.data.choices[0].text;
+};
+
+module.exports = {
+  getRandomWordWithDefinition,
+  getRandomWord,
+  getOpenAPICompletionResponse,
+};
