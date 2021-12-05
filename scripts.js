@@ -37,7 +37,7 @@ const getRandomWord = async () => {
 const getOpenAPICompletionResponse = async (openai, message) => {
   const gptResponse = await openai.complete({
     engine: "davinci",
-    prompt: `Add a response to the following sentence. \n${message}\nresponse:`,
+    prompt: `Add a response to the following sentence humorously. \n${message}\nresponse:`,
     temperature: 0.9,
     max_tokens: 64,
     top_p: 1,
